@@ -1,41 +1,35 @@
-import '@material/button/dist/mdc.button.css';
-import React from 'react';
-import * as R from "@rmwc/button";
-type Props = {
-    // Make button flat (only applicable to Primary button).
-    flat?: boolean,
 
+import React from 'react';
+import {Button}  from "@rmwc/button";
+import "../scss/index.scss";
+
+interface ButtonProps {
+   
     // Make button smaller.
     small?: boolean,
 
     // onClick handler.
-    onClick?: Function,
+    onClick?: (event:React.MouseEvent<HTMLElement>)=>void|null,
 
-    // Label and optionally an icon (using Button.Icon component).
+   
     children?: any,
 
     // Show ripple effect on button click. Default: true
     ripple?: boolean,
-
-    className?: string,
 
     disabled?: boolean,
 
     style?: Object
 };
 
-export const Button = (props: Props) => {
-    const { disabled, onClick, children, small, ripple = true, className = "" } = props;
+ const AppButton = (props: ButtonProps) => {
+    const { disabled, onClick, children, small, ripple = true , style={}} = props;
 
     return (
-        <R.Button
-            disabled={disabled}
-            dense={small}
-            onClick={onClick}
-            ripple={ripple}
-            className={className}
-        >
+        <Button  ripple={ripple}  dense={small} disabled={disabled} style={style} onClick={onClick}>
             {children}
-        </R.Button>
+        </Button>
     );
 };
+
+export default AppButton;

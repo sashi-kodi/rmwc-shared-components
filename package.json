@@ -1,22 +1,26 @@
 {
-  "name": "my-app",
+  "name": "shared-components",
   "version": "0.1.0",
-  "private": true,
+  "main":"dist/index.js",
+  "module": "dist/index.js",
+  "files": ["dist"],
   "dependencies": {
     "@rmwc/button": "^5.6.0",
+    "@rmwc/card": "^5.6.0",
+    "@rmwc/tabs": "^5.6.0",
+    "@rmwc/typography": "^5.6.0",
     "@types/jest": "24.0.15",
     "@types/node": "12.6.8",
     "@types/react": "^16.8.23",
     "@types/react-dom": "16.8.5",
+    "material-components-web": "^3.1.0",
     "node-sass": "^4.12.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
     "typescript": "3.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build-examples": "react-scripts build",
+    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +38,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1",
+    "react": "^16.3.2"
+  },
+  "peerDependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.8.6"
   }
 }
