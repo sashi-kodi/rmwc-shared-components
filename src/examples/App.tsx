@@ -1,17 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 import './App.scss';
 import AppButton from '../lib/components/Button';
 import AppCard from '../lib/components/Card';
-import DataTable from './DataTable';
+import DataTable2 from './DataTable2';
+import DataTable3 from './DataTable3';
+import {Typography} from '@rmwc/typography';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-       <AppButton   >
-         Hello World
-         </AppButton>
-         <AppCard style={{ width: '21rem' }} outlined={true} headerText="Hello World" subtitleText="by Skodi" cardText="Visit ten places on our planet that are undergoing the biggest changes today" />
-          <DataTable />
+      <Typography use="subtitle1">Data Table Demo</Typography>
+      <DataTable3 />
      
     </div>
   );

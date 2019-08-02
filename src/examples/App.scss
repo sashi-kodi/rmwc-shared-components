@@ -1,5 +1,6 @@
 
 .App {
+  margin-top:20px;
   text-align: center;
 }
 
@@ -31,4 +32,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.rmwc-data-table{
+  width:80%;
+}
+.my-form{
+  width:83%;
 }

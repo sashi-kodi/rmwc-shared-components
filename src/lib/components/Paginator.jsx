@@ -42,7 +42,7 @@ const Paginator = (props)=>{
                 {pages.map(page => {
                   let activePage = null;
                   if (currentPage === page) {
-                    activePage = { backgroundColor: '#FE6B8B' };
+                    activePage = { backgroundColor: '#018786' };
                   }
                   return (
                     <button

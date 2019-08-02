@@ -1,0 +1,17 @@
+.search-holder{
+    margin:auto;
+    width:80%;
+    margin-top:20px;
+    margin-bottom: 20px;
+    position: relative;
+   p.search-text{
+       position: absolute;
+       left:28%;
+       bottom:-4px;
+   }
+   .mdc-select{
+    position:absolute;
+    right:0;
+    bottom:0;
+  }
+}

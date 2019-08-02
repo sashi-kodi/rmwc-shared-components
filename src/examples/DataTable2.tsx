@@ -1,8 +1,8 @@
-import React,{Component} from 'react';
+import React,{Component, FormEvent} from 'react';
 import axios from 'axios';
 import AppTable from '../lib/components/Table';
 import Paginator from '../lib/components/Paginator';
-import FilterBox from '../lib/components/FilterBox';
+import FilterBox2 from '../lib/components/FilterBox2';
 import data from "../data";
 import "./DataTable.scss";
 export interface DataItem{
@@ -12,13 +12,13 @@ export interface DataItem{
     email: string;
    
 }
-class DataTable1 extends Component{
+class DataTable2 extends Component{
     state={
         data:[],
         currentPage:1,
         limit:5,
         options:[],
-        query:[]
+        query:""
     }
     constructor(props:any){
         super(props);
@@ -54,13 +54,8 @@ class DataTable1 extends Component{
       this.setState({
                 data: data,
                 options: options,
-                query:[]
+                query:''
             });
-  }
-  handleFilteredData=(newdata:any)=>{
-      this.setState({
-          data:newdata
-      })
   }
   handlePageChange = (page:number, e:any) => {
     this.setState({
@@ -82,41 +77,80 @@ class DataTable1 extends Component{
       });
       return newdata;
   }
-  handleQuery=(query:Array<any>)=>{
-      this.setState({
-          query: query
-      });
-      if (query.length==0){
+   checkIfPresent =(arr:Array<any>,search:string)=>{
+    let present=false;
+    arr.forEach(el=>{
+        if (el.toLowerCase().includes(search.toLowerCase())){
+            present = true;
+        }
+    })
+    return present;
+  }
+  filterData =(query:string)=>{
+      let curdata =[...this.state.data];
+      let search = query;
+      if(!query){
           this.setState({
-              data: data
+              data: data,
+              query:''
           })
       }
+      else{
+        let newdata =curdata.filter((el)=>{
+            let tempdata = Object.values(el);
+            if (this.checkIfPresent(tempdata,search)) {
+                return el;
+            }
+         });
+        
+         this.setState({
+             data: newdata,
+             query:query
+         })
+      }
+      
   }
+  handleQuery=(query:string)=>{
+    this.filterData(query);
+     
+  }
+  
   render(){
       const limit=this.state.limit;
       const pageCount=5;
       const total=this.state.data.length;
-
+      
+     
       return(
           <div>
               <div className="search-holder" >
-              <p className="search-text">Search</p>
-              <FilterBox
+              <FilterBox2
                 query={this.state.query}
-                handleQuery={this.handleQuery}
-               data={this.state.data} options={this.state.options} handleFilteredData={this.handleFilteredData}/>
+                onChange={this.handleQuery}
+                />
               </div>
+              {
+                  this.state.data.length ==0 &&
+                  <p style={{color:'red'}}>No Matching Records found</p>
+
+              }
+              {
+                  this.state.data.length>0 &&
+                  <div>
+                  <AppTable datainfo={this.getTableRecords()} dataheaders={[['Name', 'Description', 'Status', 'Email']]}/>
+                  <Paginator 
+                  total={total}
+                  limit={limit}
+                  pageCount={pageCount}
+                  currentPage={this.state.currentPage}
+                  handlePageChange={this.handlePageChange}
+                  />
+                  </div>
+              }
               
-              <AppTable datainfo={this.getTableRecords()} dataheaders={[['Name', 'Description', 'Status', 'Email']]}/>
-              <Paginator 
-              total={total}
-              limit={limit}
-              pageCount={pageCount}
-              currentPage={this.state.currentPage}
-              handlePageChange={this.handlePageChange}
-              />
+             
           </div>
       )
   }
 }
-export default DataTable1;
+export default DataTable2;
